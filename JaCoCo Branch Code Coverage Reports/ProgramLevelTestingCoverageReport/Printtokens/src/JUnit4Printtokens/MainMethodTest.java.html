@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MainMethodTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">MainMethodTest (Dec 7, 2020 8:07:07 AM)</a> &gt; <a href="../../index.html" class="el_group">Printtokens</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">JUnit4Printtokens</a> &gt; <span class="el_source">MainMethodTest.java</span></div><h1>MainMethodTest.java</h1><pre class="source lang-java linenums">package JUnit4Printtokens;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import java.io.*;
+
+
+<span class="fc" id="L8">class MainMethodTest {	</span>
+
+<span class="fc" id="L10">	ByteArrayOutputStream output  = new ByteArrayOutputStream();</span>
+
+	@Test
+	public void main_test1() throws IOException {
+<span class="fc" id="L14">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L15">		String[] args = {&quot;file.txt&quot;,&quot;file2.txt&quot;};</span>
+<span class="fc" id="L16">		Printtokens.main(args);	</span>
+<span class="fc" id="L17">		assertEquals(&quot;Error!,please give the token stream\n&quot;, output.toString());</span>
+<span class="fc" id="L18">	}</span>
+	
+	@Test
+	public void main_test2a() throws IOException {	
+<span class="fc" id="L22">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L23">		String[] args = {&quot;C:\\Users\\Nihar Gupte\\eclipse-workspace\\Printtokens\\emptyFile.txt&quot;};</span>
+<span class="fc" id="L24">		Printtokens.main(args);</span>
+<span class="fc" id="L25">		assertEquals(&quot;&quot;, output.toString());</span>
+<span class="fc" id="L26">	}</span>
+	
+	@Test
+	public void main_test2() throws IOException {	
+<span class="fc" id="L30">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L31">		String[] args = {&quot;C:\\Users\\Nihar Gupte\\eclipse-workspace\\Printtokens\\test.txt&quot;};</span>
+<span class="fc" id="L32">		Printtokens.main(args);</span>
+<span class="fc" id="L33">		assertEquals(&quot;keyword,\&quot;and\&quot;.\nnumeric,5.\ncharacter,\&quot;d\&quot;.\nstring,\&quot;hello\&quot;.\ncomment,;hey.\nerror,\&quot;!!!!\&quot;.\nlsquare.\n&quot;, output.toString());</span>
+<span class="fc" id="L34">	}</span>
+	
+	@Test
+	public void main_test3() throws IOException {
+<span class="fc" id="L38">		String commandLineInput = &quot;\n&quot;;</span>
+<span class="fc" id="L39">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L40">		System.setIn(input);</span>
+<span class="fc" id="L41">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L42">		String[] args = {};</span>
+<span class="fc" id="L43">		Printtokens.main(args);</span>
+<span class="fc" id="L44">		assertEquals(&quot;&quot;, output.toString()); </span>
+<span class="fc" id="L45">	}</span>
+	
+	@Test
+	public void main_test4a() throws IOException {
+<span class="fc" id="L49">		String commandLineInput = &quot;(&quot;;</span>
+<span class="fc" id="L50">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L51">		System.setIn(input);</span>
+<span class="fc" id="L52">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L53">		String[] args = {};</span>
+<span class="fc" id="L54">		Printtokens.main(args);</span>
+<span class="fc" id="L55">		assertEquals(&quot;lparen.\n&quot;, output.toString()); </span>
+<span class="fc" id="L56">	}</span>
+	
+	@Test
+	public void main_test4b() throws IOException {
+<span class="fc" id="L60">		String commandLineInput = &quot;)&quot;;</span>
+<span class="fc" id="L61">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L62">		System.setIn(input);</span>
+<span class="fc" id="L63">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L64">		String[] args = {};</span>
+<span class="fc" id="L65">		Printtokens.main(args);</span>
+<span class="fc" id="L66">		assertEquals(&quot;rparen.\n&quot;, output.toString()); </span>
+<span class="fc" id="L67">	}</span>
+	
+	@Test
+	public void main_test4c() throws IOException {
+<span class="fc" id="L71">		String commandLineInput = &quot;[&quot;;</span>
+<span class="fc" id="L72">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L73">		System.setIn(input);</span>
+<span class="fc" id="L74">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L75">		String[] args = {};</span>
+<span class="fc" id="L76">		Printtokens.main(args);</span>
+<span class="fc" id="L77">		assertEquals(&quot;lsquare.\n&quot;, output.toString()); </span>
+<span class="fc" id="L78">	}</span>
+	
+	@Test
+	public void main_test4d() throws IOException {
+<span class="fc" id="L82">		String commandLineInput = &quot;]&quot;;</span>
+<span class="fc" id="L83">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L84">		System.setIn(input);</span>
+<span class="fc" id="L85">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L86">		String[] args = {};</span>
+<span class="fc" id="L87">		Printtokens.main(args);</span>
+<span class="fc" id="L88">		assertEquals(&quot;rsquare.\n&quot;, output.toString()); </span>
+<span class="fc" id="L89">	}</span>
+	
+	@Test
+	public void main_test4e() throws IOException {
+<span class="fc" id="L93">		String commandLineInput = &quot;'&quot;;</span>
+<span class="fc" id="L94">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L95">		System.setIn(input);</span>
+<span class="fc" id="L96">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L97">		String[] args = {};</span>
+<span class="fc" id="L98">		Printtokens.main(args);</span>
+<span class="fc" id="L99">		assertEquals(&quot;quote.\n&quot;, output.toString()); </span>
+<span class="fc" id="L100">	}</span>
+	
+	@Test
+	public void main_test4f() throws IOException {
+<span class="fc" id="L104">		String commandLineInput = &quot;`&quot;;</span>
+<span class="fc" id="L105">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L106">		System.setIn(input);</span>
+<span class="fc" id="L107">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L108">		String[] args = {};</span>
+<span class="fc" id="L109">		Printtokens.main(args);</span>
+<span class="fc" id="L110">		assertEquals(&quot;bquote.\n&quot;, output.toString()); </span>
+<span class="fc" id="L111">	}</span>
+		
+	@Test
+	public void main_test4g() throws IOException {
+<span class="fc" id="L115">		String commandLineInput = &quot;,&quot;;</span>
+<span class="fc" id="L116">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L117">		System.setIn(input);</span>
+<span class="fc" id="L118">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L119">		String[] args = {};</span>
+<span class="fc" id="L120">		Printtokens.main(args);</span>
+<span class="fc" id="L121">		assertEquals(&quot;comma.\n&quot;, output.toString()); </span>
+<span class="fc" id="L122">	}</span>
+	
+	@Test
+	public void main_test4h() throws IOException {
+<span class="fc" id="L126">		String commandLineInput = &quot;/&quot;;</span>
+<span class="fc" id="L127">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L128">		System.setIn(input);</span>
+<span class="fc" id="L129">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L130">		String[] args = {};</span>
+<span class="fc" id="L131">		Printtokens.main(args);</span>
+<span class="fc" id="L132">		assertEquals(&quot;slash.\n&quot;, output.toString()); </span>
+<span class="fc" id="L133">	}</span>
+	
+	@Test
+	public void main_test5a() throws IOException {
+<span class="fc" id="L137">		String commandLineInput = &quot;\na&quot;;</span>
+<span class="fc" id="L138">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L139">		System.setIn(input);</span>
+<span class="fc" id="L140">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L141">		String[] args = {};</span>
+<span class="fc" id="L142">		Printtokens.main(args);</span>
+<span class="fc" id="L143">		assertEquals(&quot;identifier,\&quot;a\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L144">	}</span>
+	
+	@Test
+	public void main_test5b() throws IOException {
+<span class="fc" id="L148">		String commandLineInput = &quot;\ta&quot;;</span>
+<span class="fc" id="L149">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L150">		System.setIn(input);</span>
+<span class="fc" id="L151">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L152">		String[] args = {};</span>
+<span class="fc" id="L153">		Printtokens.main(args);</span>
+<span class="fc" id="L154">		assertEquals(&quot;identifier,\&quot;a\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L155">	}</span>
+	
+	@Test
+	public void main_test5c() throws IOException {
+<span class="fc" id="L159">		String commandLineInput = &quot;\ra&quot;;</span>
+<span class="fc" id="L160">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L161">		System.setIn(input);</span>
+<span class="fc" id="L162">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L163">		String[] args = {};</span>
+<span class="fc" id="L164">		Printtokens.main(args);</span>
+<span class="fc" id="L165">		assertEquals(&quot;identifier,\&quot;a\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L166">	}</span>
+	
+	@Test
+	public void main_test6a() throws IOException {
+<span class="fc" id="L170">		String commandLineInput = &quot;;&quot;;</span>
+<span class="fc" id="L171">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L172">		System.setIn(input);</span>
+<span class="fc" id="L173">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L174">		String[] args = {};</span>
+<span class="fc" id="L175">		Printtokens.main(args);</span>
+<span class="fc" id="L176">		assertEquals(&quot;comment,;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L177">	}</span>
+	
+	@Test
+	public void main_test6b() throws IOException {
+<span class="fc" id="L181">		String commandLineInput = &quot;;\n&quot;;</span>
+<span class="fc" id="L182">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L183">		System.setIn(input);</span>
+<span class="fc" id="L184">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L185">		String[] args = {};</span>
+<span class="fc" id="L186">		Printtokens.main(args);</span>
+<span class="fc" id="L187">		assertEquals(&quot;comment,;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L188">	}</span>
+	
+	@Test
+	public void main_test6c() throws IOException {
+<span class="fc" id="L192">		String commandLineInput = &quot;;\t&quot;;</span>
+<span class="fc" id="L193">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L194">		System.setIn(input);</span>
+<span class="fc" id="L195">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L196">		String[] args = {};</span>
+<span class="fc" id="L197">		Printtokens.main(args);</span>
+<span class="fc" id="L198">		assertEquals(&quot;comment,;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L199">	}</span>
+	
+	@Test
+	public void main_test6d() throws IOException {
+<span class="fc" id="L203">		String commandLineInput = &quot;;\r&quot;;</span>
+<span class="fc" id="L204">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L205">		System.setIn(input);</span>
+<span class="fc" id="L206">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L207">		String[] args = {};</span>
+<span class="fc" id="L208">		Printtokens.main(args);</span>
+<span class="fc" id="L209">		assertEquals(&quot;comment,;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L210">	}</span>
+	
+	@Test
+	public void main_test6e() throws IOException {
+<span class="fc" id="L214">		String commandLineInput = &quot;;;&quot;;</span>
+<span class="fc" id="L215">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L216">		System.setIn(input);</span>
+<span class="fc" id="L217">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L218">		String[] args = {};</span>
+<span class="fc" id="L219">		Printtokens.main(args);</span>
+<span class="fc" id="L220">		assertEquals(&quot;comment,;;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L221">	}</span>
+	
+	@Test
+	public void main_test7a() throws IOException {
+<span class="fc" id="L225">		String commandLineInput = &quot;\&quot;&quot;;</span>
+<span class="fc" id="L226">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L227">		System.setIn(input);</span>
+<span class="fc" id="L228">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L229">		String[] args = {};</span>
+<span class="fc" id="L230">		Printtokens.main(args);</span>
+<span class="fc" id="L231">		assertEquals(&quot;error,\&quot;\&quot;\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L232">	}</span>
+	
+	@Test
+	public void main_test7b() throws IOException {
+<span class="fc" id="L236">		String commandLineInput = &quot;!!22&quot;;</span>
+<span class="fc" id="L237">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L238">		System.setIn(input);</span>
+<span class="fc" id="L239">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L240">		String[] args = {};</span>
+<span class="fc" id="L241">		Printtokens.main(args);</span>
+<span class="fc" id="L242">		assertEquals(&quot;error,\&quot;!!22\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L243">	}</span>
+	
+	@Test
+	public void main_test7c() throws IOException {
+<span class="fc" id="L247">		String commandLineInput = &quot;{&quot;;</span>
+<span class="fc" id="L248">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L249">		System.setIn(input);</span>
+<span class="fc" id="L250">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L251">		String[] args = {};</span>
+<span class="fc" id="L252">		Printtokens.main(args);</span>
+<span class="fc" id="L253">		assertEquals(&quot;error,\&quot;{\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L254">	}</span>
+	
+	@Test
+	public void main_test8a() throws IOException {
+<span class="fc" id="L258">		String commandLineInput = &quot;AB &quot;;</span>
+<span class="fc" id="L259">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L260">		System.setIn(input);</span>
+<span class="fc" id="L261">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L262">		String[] args = {};</span>
+<span class="fc" id="L263">		Printtokens.main(args);</span>
+<span class="fc" id="L264">		assertEquals(&quot;identifier,\&quot;AB\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L265">	}</span>
+	
+	@Test
+	public void main_test8b() throws IOException {
+<span class="fc" id="L269">		String commandLineInput = &quot;AB\n&quot;;</span>
+<span class="fc" id="L270">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L271">		System.setIn(input);</span>
+<span class="fc" id="L272">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L273">		String[] args = {};</span>
+<span class="fc" id="L274">		Printtokens.main(args);</span>
+<span class="fc" id="L275">		assertEquals(&quot;identifier,\&quot;AB\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L276">	}</span>
+	
+	@Test
+	public void main_test8c() throws IOException {
+<span class="fc" id="L280">		String commandLineInput = &quot;AB\r&quot;;</span>
+<span class="fc" id="L281">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L282">		System.setIn(input);</span>
+<span class="fc" id="L283">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L284">		String[] args = {};</span>
+<span class="fc" id="L285">		Printtokens.main(args);</span>
+<span class="fc" id="L286">		assertEquals(&quot;identifier,\&quot;AB\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L287">	}</span>
+	
+
+	@Test
+	public void main_test9() throws IOException {
+<span class="fc" id="L292">		String commandLineInput = &quot;ABC\0&quot;;</span>
+<span class="fc" id="L293">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L294">		System.setIn(input);</span>
+<span class="fc" id="L295">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L296">		String[] args = {};</span>
+<span class="fc" id="L297">		Printtokens.main(args);</span>
+<span class="fc" id="L298">		assertEquals(&quot;identifier,\&quot;ABC\0\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L299">	}</span>
+	
+	@Test
+	public void main_test10() throws IOException {
+<span class="fc" id="L303">		String commandLineInput = &quot;ABC(&quot;;</span>
+<span class="fc" id="L304">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L305">		System.setIn(input);</span>
+<span class="fc" id="L306">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L307">		String[] args = {};</span>
+<span class="fc" id="L308">		Printtokens.main(args);</span>
+<span class="fc" id="L309">		assertEquals(&quot;identifier,\&quot;ABC\&quot;.\nlparen.\n&quot;, output.toString()); </span>
+<span class="fc" id="L310">	}</span>
+	
+	@Test
+	public void main_test11() throws IOException {
+<span class="fc" id="L314">		String commandLineInput = &quot;ABC\&quot;&quot;;</span>
+<span class="fc" id="L315">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L316">		System.setIn(input);</span>
+<span class="fc" id="L317">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L318">		String[] args = {};</span>
+<span class="fc" id="L319">		Printtokens.main(args);</span>
+<span class="fc" id="L320">		assertEquals(&quot;error,\&quot;ABC\&quot;\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L321">	}</span>
+	
+	@Test
+	public void main_test12() throws IOException {
+<span class="fc" id="L325">		String commandLineInput = &quot;ABC;&quot;;</span>
+<span class="fc" id="L326">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L327">		System.setIn(input);</span>
+<span class="fc" id="L328">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L329">		String[] args = {};</span>
+<span class="fc" id="L330">		Printtokens.main(args);</span>
+<span class="fc" id="L331">		assertEquals(&quot;identifier,\&quot;ABC\&quot;.\ncomment,;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L332">	}</span>
+	
+	@Test
+	public void main_test13a() throws IOException {
+<span class="fc" id="L336">		String commandLineInput = &quot;ABC&quot;;</span>
+<span class="fc" id="L337">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L338">		System.setIn(input);</span>
+<span class="fc" id="L339">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L340">		String[] args = {};</span>
+<span class="fc" id="L341">		Printtokens.main(args);</span>
+<span class="fc" id="L342">		assertEquals(&quot;identifier,\&quot;ABC\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L343">	}</span>
+	
+	@Test
+	public void main_test13b() throws IOException {
+<span class="fc" id="L347">		String commandLineInput = &quot;ABC1&quot;;</span>
+<span class="fc" id="L348">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L349">		System.setIn(input);</span>
+<span class="fc" id="L350">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L351">		String[] args = {};</span>
+<span class="fc" id="L352">		Printtokens.main(args);</span>
+<span class="fc" id="L353">		assertEquals(&quot;identifier,\&quot;ABC1\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L354">	}</span>
+	
+	@Test
+	public void main_test14a() throws IOException {
+<span class="fc" id="L358">		String commandLineInput = &quot;and&quot;;</span>
+<span class="fc" id="L359">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L360">		System.setIn(input);</span>
+<span class="fc" id="L361">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L362">		String[] args = {};</span>
+<span class="fc" id="L363">		Printtokens.main(args);</span>
+<span class="fc" id="L364">		assertEquals(&quot;keyword,\&quot;and\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L365">	}</span>
+	
+	@Test
+	public void main_test14b() throws IOException {
+<span class="fc" id="L369">		String commandLineInput = &quot;or&quot;;</span>
+<span class="fc" id="L370">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L371">		System.setIn(input);</span>
+<span class="fc" id="L372">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L373">		String[] args = {};</span>
+<span class="fc" id="L374">		Printtokens.main(args);</span>
+<span class="fc" id="L375">		assertEquals(&quot;keyword,\&quot;or\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L376">	}</span>
+	
+	@Test
+	public void main_test14c() throws IOException {
+<span class="fc" id="L380">		String commandLineInput = &quot;if&quot;;</span>
+<span class="fc" id="L381">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L382">		System.setIn(input);</span>
+<span class="fc" id="L383">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L384">		String[] args = {};</span>
+<span class="fc" id="L385">		Printtokens.main(args);</span>
+<span class="fc" id="L386">		assertEquals(&quot;keyword,\&quot;if\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L387">	}</span>
+	
+	@Test
+	public void main_test14d() throws IOException {
+<span class="fc" id="L391">		String commandLineInput = &quot;xor&quot;;</span>
+<span class="fc" id="L392">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L393">		System.setIn(input);</span>
+<span class="fc" id="L394">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L395">		String[] args = {};</span>
+<span class="fc" id="L396">		Printtokens.main(args);</span>
+<span class="fc" id="L397">		assertEquals(&quot;keyword,\&quot;xor\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L398">	}</span>
+	
+	@Test
+	public void main_test14e() throws IOException {
+<span class="fc" id="L402">		String commandLineInput = &quot;lambda&quot;;</span>
+<span class="fc" id="L403">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L404">		System.setIn(input);</span>
+<span class="fc" id="L405">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L406">		String[] args = {};</span>
+<span class="fc" id="L407">		Printtokens.main(args);</span>
+<span class="fc" id="L408">		assertEquals(&quot;keyword,\&quot;lambda\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L409">	}</span>
+	
+	@Test
+	public void main_test14f() throws IOException {
+<span class="fc" id="L413">		String commandLineInput = &quot;=&gt;&quot;;</span>
+<span class="fc" id="L414">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L415">		System.setIn(input);</span>
+<span class="fc" id="L416">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L417">		String[] args = {};</span>
+<span class="fc" id="L418">		Printtokens.main(args);</span>
+<span class="fc" id="L419">		assertEquals(&quot;keyword,\&quot;=&gt;\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L420">	}</span>
+	
+	@Test
+	public void main_test15a() throws IOException {
+<span class="fc" id="L424">		String commandLineInput = &quot;5&quot;;</span>
+<span class="fc" id="L425">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L426">		System.setIn(input);</span>
+<span class="fc" id="L427">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L428">		String[] args = {};</span>
+<span class="fc" id="L429">		Printtokens.main(args);</span>
+<span class="fc" id="L430">		assertEquals(&quot;numeric,5.\n&quot;, output.toString()); </span>
+<span class="fc" id="L431">	}</span>
+	
+	@Test
+	public void main_test15b() throws IOException {
+<span class="fc" id="L435">		String commandLineInput = &quot;55&quot;;</span>
+<span class="fc" id="L436">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L437">		System.setIn(input);</span>
+<span class="fc" id="L438">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L439">		String[] args = {};</span>
+<span class="fc" id="L440">		Printtokens.main(args);</span>
+<span class="fc" id="L441">		assertEquals(&quot;numeric,55.\n&quot;, output.toString()); </span>
+<span class="fc" id="L442">	}</span>
+	
+	@Test
+	public void main_test15c() throws IOException {
+<span class="fc" id="L446">		String commandLineInput = &quot;5A&quot;;</span>
+<span class="fc" id="L447">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L448">		System.setIn(input);</span>
+<span class="fc" id="L449">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L450">		String[] args = {};</span>
+<span class="fc" id="L451">		Printtokens.main(args);</span>
+<span class="fc" id="L452">		assertEquals(&quot;error,\&quot;5A\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L453">	}</span>
+	
+	@Test
+	public void main_test15d() throws IOException {
+<span class="fc" id="L457">		String commandLineInput = &quot;5\0&quot;;</span>
+<span class="fc" id="L458">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L459">		System.setIn(input);</span>
+<span class="fc" id="L460">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L461">		String[] args = {};</span>
+<span class="fc" id="L462">		Printtokens.main(args);</span>
+<span class="fc" id="L463">		assertEquals(&quot;numeric,5\0.\n&quot;, output.toString()); </span>
+<span class="fc" id="L464">	}</span>
+	
+	@Test
+	public void main_test16a() throws IOException {
+<span class="fc" id="L468">		String commandLineInput = &quot;#c&quot;;</span>
+<span class="fc" id="L469">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L470">		System.setIn(input);</span>
+<span class="fc" id="L471">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L472">		String[] args = {};</span>
+<span class="fc" id="L473">		Printtokens.main(args);</span>
+<span class="fc" id="L474">		assertEquals(&quot;character,\&quot;c\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L475">	}</span>
+	
+	@Test
+	public void main_test16b() throws IOException {
+<span class="fc" id="L479">		String commandLineInput = &quot;#1&quot;;</span>
+<span class="fc" id="L480">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L481">		System.setIn(input);</span>
+<span class="fc" id="L482">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L483">		String[] args = {};</span>
+<span class="fc" id="L484">		Printtokens.main(args);</span>
+<span class="fc" id="L485">		assertEquals(&quot;error,\&quot;#1\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L486">	}</span>
+	
+	@Test
+	public void main_test17a() throws IOException {
+<span class="fc" id="L490">		String commandLineInput = &quot;\&quot;hello\&quot;&quot;;</span>
+<span class="fc" id="L491">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L492">		System.setIn(input);</span>
+<span class="fc" id="L493">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L494">		String[] args = {};</span>
+<span class="fc" id="L495">		Printtokens.main(args);</span>
+<span class="fc" id="L496">		assertEquals(&quot;string,\&quot;hello\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L497">	}</span>
+	
+	@Test
+	public void main_test17b() throws IOException {
+<span class="fc" id="L501">		String commandLineInput = &quot;\&quot;hello\&quot;\n&quot;;</span>
+<span class="fc" id="L502">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L503">		System.setIn(input);</span>
+<span class="fc" id="L504">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L505">		String[] args = {};</span>
+<span class="fc" id="L506">		Printtokens.main(args);</span>
+<span class="fc" id="L507">		assertEquals(&quot;string,\&quot;hello\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L508">	}</span>
+	
+	@Test
+	public void main_test17c() throws IOException {
+<span class="fc" id="L512">		String commandLineInput = &quot;\&quot;hello\&quot;\r&quot;;</span>
+<span class="fc" id="L513">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L514">		System.setIn(input);</span>
+<span class="fc" id="L515">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L516">		String[] args = {};</span>
+<span class="fc" id="L517">		Printtokens.main(args);</span>
+<span class="fc" id="L518">		assertEquals(&quot;string,\&quot;hello\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L519">	}</span>
+	
+	@Test
+	public void main_test17d() throws IOException {
+<span class="fc" id="L523">		String commandLineInput = &quot;\&quot;hello\&quot;\t&quot;;</span>
+<span class="fc" id="L524">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L525">		System.setIn(input);</span>
+<span class="fc" id="L526">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L527">		String[] args = {};</span>
+<span class="fc" id="L528">		Printtokens.main(args);</span>
+<span class="fc" id="L529">		assertEquals(&quot;string,\&quot;hello\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L530">	}</span>
+	
+	@Test
+	public void main_test17e() throws IOException {
+<span class="fc" id="L534">		String commandLineInput = &quot;\&quot;\&quot;&quot;;</span>
+<span class="fc" id="L535">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L536">		System.setIn(input);</span>
+<span class="fc" id="L537">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L538">		String[] args = {};</span>
+<span class="fc" id="L539">		Printtokens.main(args);</span>
+<span class="fc" id="L540">		assertEquals(&quot;string,\&quot;\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L541">	}</span>
+	
+	@Test
+	public void main_test17f() throws IOException {
+<span class="fc" id="L545">		String commandLineInput = &quot;\&quot;hello\n&quot;;</span>
+<span class="fc" id="L546">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L547">		System.setIn(input);</span>
+<span class="fc" id="L548">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L549">		String[] args = {};</span>
+<span class="fc" id="L550">		Printtokens.main(args);</span>
+<span class="fc" id="L551">		assertEquals(&quot;error,\&quot;\&quot;hello\n\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L552">	}</span>
+	
+	@Test
+	public void main_test17g() throws IOException {
+<span class="fc" id="L556">		String commandLineInput = &quot;\&quot;\0&quot;;</span>
+<span class="fc" id="L557">		ByteArrayInputStream input = new ByteArrayInputStream(commandLineInput.getBytes());</span>
+<span class="fc" id="L558">		System.setIn(input);</span>
+<span class="fc" id="L559">		System.setOut(new PrintStream(output));</span>
+<span class="fc" id="L560">		String[] args = {};</span>
+<span class="fc" id="L561">		Printtokens.main(args);</span>
+<span class="fc" id="L562">		assertEquals(&quot;error,\&quot;\&quot;\0\&quot;.\n&quot;, output.toString()); </span>
+<span class="fc" id="L563">	}	</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>MainMethodTest (Dec 7, 2020 8:07:07 AM)</div></body></html>

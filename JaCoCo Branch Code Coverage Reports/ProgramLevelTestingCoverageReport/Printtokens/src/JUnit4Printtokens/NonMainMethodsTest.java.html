@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>NonMainMethodsTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">MainMethodTest (Dec 7, 2020 8:07:07 AM)</a> &gt; <a href="../../index.html" class="el_group">Printtokens</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">JUnit4Printtokens</a> &gt; <span class="el_source">NonMainMethodsTest.java</span></div><h1>NonMainMethodsTest.java</h1><pre class="source lang-java linenums">package JUnit4Printtokens;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import java.io.*;
+
+<span class="nc" id="L8">class NonMainMethodsTest {</span>
+
+	static Printtokens ob;
+	
+	@BeforeAll
+	static void initialize() throws IOException 
+	{
+<span class="nc" id="L15">		ob = new Printtokens();</span>
+<span class="nc" id="L16">	}</span>
+	
+	@Test
+	void get_token_test() {
+<span class="nc" id="L20">		Reader temp = new StringReader(&quot;&quot;);</span>
+<span class="nc" id="L21">		BufferedReader br = new BufferedReader(temp);</span>
+<span class="nc" id="L22">		assertEquals(null, ob.get_token(br));</span>
+		
+<span class="nc" id="L24">		temp = new StringReader(&quot;\t&quot;);</span>
+<span class="nc" id="L25">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L26">		assertEquals(null, ob.get_token(br));</span>
+		
+<span class="nc" id="L28">		temp = new StringReader(&quot;\n&quot;);</span>
+<span class="nc" id="L29">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L30">		assertEquals(null, ob.get_token(br));</span>
+		
+<span class="nc" id="L32">		temp = new StringReader(&quot;\r&quot;);</span>
+<span class="nc" id="L33">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L34">		assertEquals(null, ob.get_token(br));</span>
+		
+<span class="nc" id="L36">		temp = new StringReader(&quot;(&quot;);</span>
+<span class="nc" id="L37">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L38">		assertEquals(&quot;(&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L40">		temp = new StringReader(&quot;\na&quot;);</span>
+<span class="nc" id="L41">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L42">		assertEquals(&quot;a&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L44">		temp = new StringReader(&quot;;&quot;);</span>
+<span class="nc" id="L45">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L46">		assertEquals(&quot;;&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L48">		temp = new StringReader(&quot;\&quot;&quot;);</span>
+<span class="nc" id="L49">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L50">		assertEquals(&quot;\&quot;&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L52">		temp = new StringReader(&quot;AB &quot;);</span>
+<span class="nc" id="L53">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L54">		assertEquals(&quot;AB&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L56">		temp = new StringReader(&quot;ABC&quot;);</span>
+<span class="nc" id="L57">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L58">		assertEquals(&quot;ABC&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L60">		temp = new StringReader(&quot;ABC(&quot;);</span>
+<span class="nc" id="L61">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L62">		assertEquals(&quot;ABC&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L64">		temp = new StringReader(&quot;ABC\&quot;&quot;);</span>
+<span class="nc" id="L65">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L66">		assertEquals(&quot;ABC\&quot;&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L68">		temp = new StringReader(&quot;ABC;&quot;);</span>
+<span class="nc" id="L69">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L70">		assertEquals(&quot;ABC&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L72">		temp = new StringReader(&quot;ABC&quot;);</span>
+<span class="nc" id="L73">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L74">		assertEquals(&quot;ABC&quot;, ob.get_token(br));</span>
+		
+<span class="nc" id="L76">		temp = new StringReader(&quot;\&quot;ABC\&quot;&quot;);</span>
+<span class="nc" id="L77">		br = new BufferedReader(temp);</span>
+<span class="nc" id="L78">		assertEquals(&quot;\&quot;ABC\&quot;&quot;, ob.get_token(br));</span>
+<span class="nc" id="L79">	}</span>
+	
+	@Test
+	void is_token_end_test(){
+<span class="nc" id="L83">		assertEquals(true, Printtokens.is_token_end(0,-1));</span>
+<span class="nc" id="L84">		assertEquals(true, Printtokens.is_token_end(1,34));</span>
+<span class="nc" id="L85">		assertEquals(true, Printtokens.is_token_end(1,10));</span>
+<span class="nc" id="L86">		assertEquals(true, Printtokens.is_token_end(1,13));</span>
+<span class="nc" id="L87">		assertEquals(false, Printtokens.is_token_end(1,67));</span>
+<span class="nc" id="L88">		assertEquals(true, Printtokens.is_token_end(2,10));</span>
+<span class="nc" id="L89">		assertEquals(true, Printtokens.is_token_end(2,13));</span>
+<span class="nc" id="L90">		assertEquals(true, Printtokens.is_token_end(2,9));</span>
+<span class="nc" id="L91">		assertEquals(false, Printtokens.is_token_end(2,68));</span>
+<span class="nc" id="L92">		assertEquals(true, Printtokens.is_token_end(0,40));</span>
+<span class="nc" id="L93">		assertEquals(true, Printtokens.is_token_end(0,32));</span>
+<span class="nc" id="L94">		assertEquals(true, Printtokens.is_token_end(0,10));</span>
+<span class="nc" id="L95">		assertEquals(true, Printtokens.is_token_end(0,13));</span>
+<span class="nc" id="L96">		assertEquals(true, Printtokens.is_token_end(0,59));</span>
+<span class="nc" id="L97">		assertEquals(false, Printtokens.is_token_end(0,69));</span>
+<span class="nc" id="L98">	}</span>
+		 
+	@Test
+	void is_keyword_test() {
+<span class="nc" id="L102">		assertEquals(true, Printtokens.is_keyword(&quot;and&quot;));</span>
+<span class="nc" id="L103">		assertEquals(true, Printtokens.is_keyword(&quot;or&quot;));</span>
+<span class="nc" id="L104">		assertEquals(true, Printtokens.is_keyword(&quot;if&quot;));</span>
+<span class="nc" id="L105">		assertEquals(true, Printtokens.is_keyword(&quot;xor&quot;));</span>
+<span class="nc" id="L106">		assertEquals(true, Printtokens.is_keyword(&quot;lambda&quot;));</span>
+<span class="nc" id="L107">		assertEquals(true, Printtokens.is_keyword(&quot;=&gt;&quot;));</span>
+<span class="nc" id="L108">		assertEquals(false, Printtokens.is_keyword(&quot;nihar&quot;));</span>
+<span class="nc" id="L109">	}</span>
+	
+	@Test
+	void is_num_constant_test() {
+<span class="nc" id="L113">		assertEquals(false, Printtokens.is_num_constant(&quot;A&quot;));</span>
+<span class="nc" id="L114">		assertEquals(false, Printtokens.is_num_constant(&quot;1A&quot;));</span>
+<span class="nc" id="L115">		assertEquals(true, Printtokens.is_num_constant(&quot;10&quot;));</span>
+<span class="nc" id="L116">		assertEquals(true, Printtokens.is_num_constant(&quot;1&quot;));</span>
+<span class="nc" id="L117">		assertEquals(true, Printtokens.is_num_constant(&quot;1\0&quot;));</span>
+<span class="nc" id="L118">	}</span>
+	
+	@Test
+	void is_str_constant_test(){
+<span class="nc" id="L122">		assertEquals(false, Printtokens.is_str_constant(&quot;1&quot;));</span>
+<span class="nc" id="L123">		assertEquals(true, Printtokens.is_str_constant(&quot;\&quot;\&quot;&quot;));</span>
+<span class="nc" id="L124">		assertEquals(true, Printtokens.is_str_constant(&quot;\&quot;hello\&quot;\0&quot;));</span>
+<span class="nc" id="L125">		assertEquals(false, Printtokens.is_str_constant(&quot;\&quot;A&quot;));</span>
+<span class="nc" id="L126">		assertEquals(false, Printtokens.is_str_constant(&quot;\&quot;A\0&quot;));</span>
+<span class="nc" id="L127">		assertEquals(false, Printtokens.is_str_constant(&quot;\&quot;&quot;));</span>
+<span class="nc" id="L128">	}</span>
+	
+	@Test
+	void is_identifier_test(){
+<span class="nc" id="L132">		assertEquals(false, Printtokens.is_identifier(&quot;1&quot;));</span>
+<span class="nc" id="L133">		assertEquals(false, Printtokens.is_identifier(&quot;a!&quot;));</span>
+<span class="nc" id="L134">		assertEquals(true, Printtokens.is_identifier(&quot;a1&quot;));</span>
+<span class="nc" id="L135">		assertEquals(true, Printtokens.is_identifier(&quot;a1\0&quot;));</span>
+<span class="nc" id="L136">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>MainMethodTest (Dec 7, 2020 8:07:07 AM)</div></body></html>
